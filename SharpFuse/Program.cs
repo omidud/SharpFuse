@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using SharpFuse.Engine;
 
 namespace SharpFuse
@@ -8,7 +9,21 @@ namespace SharpFuse
     {
         static int Main(string[] args)
         {
-            Console.WriteLine("🔥 SharpFuse — C# Source Fusion Tool");
+            var version = Assembly.GetExecutingAssembly()
+                                  .GetName()
+                                  .Version?
+                                  .ToString() ?? "unknown";
+
+            // Handle --version or -v
+            if (args.Length == 1 &&
+                (args[0].Equals("--version", StringComparison.OrdinalIgnoreCase) ||
+                 args[0].Equals("-v", StringComparison.OrdinalIgnoreCase)))
+            {
+                Console.WriteLine($"SharpFuse v{version}");
+                return 0;
+            }
+
+            Console.WriteLine($"🔥 SharpFuse v{version} — C# Source Fusion Tool");
             Console.WriteLine();
 
             if (args.Length < 1)
