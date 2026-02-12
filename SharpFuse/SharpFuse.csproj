@@ -12,7 +12,7 @@
 
 		<!-- NuGet package metadata -->
 		<PackageId>SharpFuse</PackageId>
-		<Version>0.1.1</Version>
+		<Version>0.1.2</Version>
 		<Authors>Omar Laracuente</Authors>
 		<Company>omidud</Company>
 		<Description>Roslyn-powered CLI tool that merges multiple C# source files into a single consolidated file.</Description>

@@ -9,6 +9,10 @@ namespace SharpFuse
     {
         static int Main(string[] args)
         {
+            bool addBanner = true;
+            bool addFileHeaders = true;
+
+
             var version = Assembly.GetExecutingAssembly()
                                   .GetName()
                                   .Version?
@@ -41,6 +45,18 @@ namespace SharpFuse
             for (int i = 1; i < args.Length; i++)
             {
                 var arg = args[i];
+
+                if (arg.Equals("--no-banner", StringComparison.OrdinalIgnoreCase))
+                {
+                    addBanner = false;
+                    continue;
+                }
+
+                if (arg.Equals("--no-file-headers", StringComparison.OrdinalIgnoreCase))
+                {
+                    addFileHeaders = false;
+                    continue;
+                }               
 
                 if (arg.StartsWith("--root=", StringComparison.OrdinalIgnoreCase))
                 {
@@ -83,10 +99,12 @@ namespace SharpFuse
                     InputDirectory = inputDirectory,
                     OutputFile = outputFile,
                     ForcedRootNamespace = forcedRootNamespace,
-                    AddFileHeaders = true,
+                    AddBanner = addBanner,
+                    AddFileHeaders = addFileHeaders,
                     Recursive = true,
                     ExcludeGeneratedFiles = true
                 });
+
 
                 Console.WriteLine("✅ Done.");
                 Console.WriteLine("Root Namespace  : " + result.RootNamespace);

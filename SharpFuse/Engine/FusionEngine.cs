@@ -16,6 +16,7 @@ namespace SharpFuse.Engine
         {
             public string InputDirectory { get; set; }
             public string OutputFile { get; set; }
+            public bool AddBanner { get; set; } = true;
 
             /// <summary>
             /// If provided, forces the root namespace in the output.
@@ -120,9 +121,12 @@ namespace SharpFuse.Engine
             {
                 var formatted = Formatter.Format(compilationUnit, workspace).ToFullString();
 
-                var banner = BuildBanner();
+                if (options.AddBanner)
+                {
+                    var banner = BuildBanner();
+                    formatted = banner + Environment.NewLine + formatted;
+                }
 
-                formatted = banner + Environment.NewLine + formatted;
 
                 // Ensure output directory exists
                 var outDir = Path.GetDirectoryName(outputFull);
